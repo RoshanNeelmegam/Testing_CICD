@@ -1,0 +1,24 @@
+name: Python application 
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  # skipping builds for now
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout code # takes code to the ubuntu machine
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.11 # setting up python on the ubuntu machine
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.11"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Test with pytest
+      run: |
+          pytest test_executor.py
